@@ -27,7 +27,7 @@ const App = () => {
 
         if (Array.isArray(data)) {
           setCountries(data);
-          setFilteredCountries(data);
+          setFilteredCountries(data);  // Initial country set
         } else {
           throw new Error("Invalid API response format.");
         }
@@ -83,19 +83,23 @@ const App = () => {
 
       {/* Display Country Cards */}
       <div className="countries-grid">
-        {filteredCountries.map((country) => (
-          <div key={country.abbr} className="countryCard" data-cy="country-card">
-            <img
-              src={country.flag}
-              alt={`${country.name} flag`}
-              className="country-flag"
-              data-cy="country-flag"
-            />
-            <p className="country-name" data-cy="country-name">
-              {country.name}
-            </p>
-          </div>
-        ))}
+        {filteredCountries.length > 0 ? (
+          filteredCountries.map((country) => (
+            <div key={country.abbr} className="countryCard" data-cy="country-card">
+              <img
+                src={country.flag}
+                alt={`${country.name} flag`}
+                className="country-flag"
+                data-cy="country-flag"
+              />
+              <p className="country-name" data-cy="country-name">
+                {country.name}
+              </p>
+            </div>
+          ))
+        ) : (
+          <p>No countries found.</p>
+        )}
       </div>
     </div>
   );
